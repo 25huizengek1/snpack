@@ -1,0 +1,49 @@
+[versions]
+agp = "8.3.0-alpha11"
+kotlin = "1.9.10"
+ksp = "1.9.10-1.0.13"
+
+core-ktx = "1.12.0"
+lifecycle-runtime-ktx = "2.6.2"
+activity-compose = "1.8.0"
+compose-bom = "2023.10.01"
+
+compose-compiler = "1.5.3"
+
+room = "2.6.0"
+destinations = "1.9.54"
+
+glide = "4.14.2"
+glide-compose = "1.0.0-beta01"
+
+[libraries]
+desugaring = { module = "com.android.tools:desugar_jdk_libs", version = "2.0.3" }
+
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version = "1.8.0" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+ui = { group = "androidx.compose.ui", name = "ui" }
+ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.0-alpha10" }
+
+room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
+destinations = { group = "io.github.raamcosta.compose-destinations", name = "animations-core", version.ref = "destinations" }
+destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "destinations" }
+
+slf4j-android = { group = "org.slf4j", name = "slf4j-android", version = "1.7.36" }
+
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "glide-compose" }
+
+color-picker = { module = "com.godaddy.android.colorpicker:compose-color-picker", version = "0.7.0" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

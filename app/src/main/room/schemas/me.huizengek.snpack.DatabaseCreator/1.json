@@ -1,0 +1,172 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "e9e8326fd6bb7aca1180b5b038c0e9b5",
+    "entities": [
+      {
+        "tableName": "StickerPack",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `publisher` TEXT NOT NULL, `trayImageFile` TEXT NOT NULL, `publisherEmail` TEXT NOT NULL, `publisherWebsite` TEXT NOT NULL, `privacyPolicyWebsite` TEXT NOT NULL, `licenseAgreementWebsite` TEXT NOT NULL, `imageDataVersion` INTEGER NOT NULL, `avoidCache` INTEGER NOT NULL, `animatedStickerPack` INTEGER NOT NULL, `iosAppStoreLink` TEXT NOT NULL, `androidPlayStoreLink` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publisher",
+            "columnName": "publisher",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "trayImageFile",
+            "columnName": "trayImageFile",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publisherEmail",
+            "columnName": "publisherEmail",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "publisherWebsite",
+            "columnName": "publisherWebsite",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "privacyPolicyWebsite",
+            "columnName": "privacyPolicyWebsite",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "licenseAgreementWebsite",
+            "columnName": "licenseAgreementWebsite",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageDataVersion",
+            "columnName": "imageDataVersion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avoidCache",
+            "columnName": "avoidCache",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "animatedStickerPack",
+            "columnName": "animatedStickerPack",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iosAppStoreLink",
+            "columnName": "iosAppStoreLink",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "androidPlayStoreLink",
+            "columnName": "androidPlayStoreLink",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Sticker",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `packId` INTEGER NOT NULL, `imageFileName` TEXT NOT NULL, `emojis` TEXT NOT NULL, `size` INTEGER NOT NULL, FOREIGN KEY(`packId`) REFERENCES `StickerPack`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packId",
+            "columnName": "packId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageFileName",
+            "columnName": "imageFileName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emojis",
+            "columnName": "emojis",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "size",
+            "columnName": "size",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Sticker_packId",
+            "unique": false,
+            "columnNames": [
+              "packId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Sticker_packId` ON `${TABLE_NAME}` (`packId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "StickerPack",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "packId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e9e8326fd6bb7aca1180b5b038c0e9b5')"
+    ]
+  }
+}
