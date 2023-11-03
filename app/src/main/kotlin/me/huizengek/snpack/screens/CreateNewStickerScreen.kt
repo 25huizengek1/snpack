@@ -183,7 +183,6 @@ fun CreateNewStickerScreen(packId: Long) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
-                        placeholder = { Text(text = "bijv. 'dat gaat op Zilliz'") },
                         label = { Text(text = "Tekst") }
                     )
 
