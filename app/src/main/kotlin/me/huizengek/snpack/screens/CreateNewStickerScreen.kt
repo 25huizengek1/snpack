@@ -4,7 +4,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -20,7 +19,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -31,14 +29,12 @@ import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -69,11 +65,9 @@ import kotlinx.coroutines.launch
 import me.huizengek.snpack.Database
 import me.huizengek.snpack.LocalNavigator
 import me.huizengek.snpack.R
-import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.destinations.StickerPackScreenDestination
 import me.huizengek.snpack.destinations.StickerScreenDestination
-import me.huizengek.snpack.util.px
-import me.huizengek.snpack.util.toDp
+import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.stickers.toSticker
 import me.huizengek.snpack.ui.components.ColorSelector
 import me.huizengek.snpack.ui.components.EmojiDisplay
@@ -81,6 +75,8 @@ import me.huizengek.snpack.ui.components.NavigationAwareBack
 import me.huizengek.snpack.ui.components.StickerEmojiPicker
 import me.huizengek.snpack.ui.components.StickerPreview
 import me.huizengek.snpack.ui.components.TopAppBarTitle
+import me.huizengek.snpack.util.px
+import me.huizengek.snpack.util.toDp
 import me.huizengek.snpack.util.uriSaver
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
@@ -136,22 +132,7 @@ fun CreateNewStickerScreen(packId: Long) {
                     .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TabRow(
-                    selectedTabIndex = tab,
-                    indicator = { tabPositions ->
-                        if (tab < tabPositions.size) {
-                            val width by animateDpAsState(
-                                targetValue = tabPositions[tab].contentWidth,
-                                label = ""
-                            )
-                            TabRowDefaults.PrimaryIndicator(
-                                modifier = Modifier.tabIndicatorOffset(tabPositions[tab]),
-                                width = width,
-                                shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
-                            )
-                        }
-                    }
-                ) {
+                PrimaryTabRow(selectedTabIndex = tab) {
                     Tab(
                         selected = tab == 0,
                         onClick = { tab = 0 },
