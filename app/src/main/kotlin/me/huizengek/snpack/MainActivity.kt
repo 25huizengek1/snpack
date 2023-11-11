@@ -28,36 +28,13 @@ import me.huizengek.snpack.screens.HomeScreen
 import me.huizengek.snpack.ui.theme.SnpackTheme
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        setContent {
-            SnpackTheme {
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .imePadding(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val engine = rememberAnimatedNavHostEngine(
-                        rootDefaultAnimations = RootNavGraphDefaultAnimations.ACCOMPANIST_FADING
-                    )
-                    val navController = engine.rememberNavController()
-
-                    CompositionLocalProvider(LocalNavigator provides navController) {
-                        DestinationsNavHost(
-                            navGraph = NavGraphs.root,
-                            engine = engine,
-                            navController = navController
-                        )
-                    }
-                }
-            }
-        }
+        setContent { ApplicationContent() }
     }
 
     @Suppress("OVERRIDE_DEPRECATION", "DEPRECATION")
@@ -79,3 +56,27 @@ val LocalNavigator = compositionLocalOf<NavController> { error(Unit) }
 @Destination
 @Composable
 fun NavRoot() = HomeScreen()
+
+@OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
+@Composable
+internal fun ApplicationContent() = SnpackTheme {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .imePadding(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        val engine = rememberAnimatedNavHostEngine(
+            rootDefaultAnimations = RootNavGraphDefaultAnimations.ACCOMPANIST_FADING
+        )
+        val navController = engine.rememberNavController()
+
+        CompositionLocalProvider(LocalNavigator provides navController) {
+            DestinationsNavHost(
+                navGraph = NavGraphs.root,
+                engine = engine,
+                navController = navController
+            )
+        }
+    }
+}

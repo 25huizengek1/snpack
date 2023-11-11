@@ -1,0 +1,3 @@
+Een Nederlandse, advertentievrije WhatsApp sticker maker.
+
+* Maak stickers van afbeeldingen of tekst en importeer ze in Whatsapp.

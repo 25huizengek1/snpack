@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.roborazzi)
 }
 
 android {
@@ -24,7 +25,11 @@ android {
             name = "CONTENT_PROVIDER_AUTHORITY",
             value = "\"${contentProviderAuthority}\""
         )
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 
     buildTypes {
         val label = "snpack"
@@ -69,7 +74,7 @@ android {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(17)
 }
 
 dependencies {
@@ -97,6 +102,13 @@ dependencies {
     implementation(libs.glide.compose)
 
     implementation(libs.color.picker)
+
+    testImplementation(libs.robolectric)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.compose)
+    testImplementation(libs.junit)
+    testImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.test.manifest)
 }
 
 ksp {

@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -54,7 +55,8 @@ fun HomeScreen() {
                 actions = {
                     AppBarAction(
                         onClick = { navigator.navigate(SettingsScreenDestination) },
-                        icon = Icons.Filled.Settings
+                        icon = Icons.Filled.Settings,
+                        contentDescription = "Instellingen" // for testing
                     )
                 }
             )
@@ -62,7 +64,8 @@ fun HomeScreen() {
             ExtendedFloatingActionButton(
                 onClick = { navigator.navigate(CreateNewPackScreenDestination) },
                 icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = null) },
-                text = { Text(text = "Nieuw stickerpakket") }
+                text = { Text(text = "Nieuw stickerpakket") },
+                modifier = Modifier.testTag("homeFab")
             )
         }
     ) { paddingValues ->

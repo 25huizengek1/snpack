@@ -2,6 +2,7 @@
 agp = "8.3.0-alpha11"
 kotlin = "1.9.10"
 ksp = "1.9.10-1.0.13"
+roborazzi = "1.8.0-alpha-4"
 
 core-ktx = "1.12.0"
 lifecycle-runtime-ktx = "2.6.2"
@@ -17,7 +18,7 @@ glide = "4.14.2"
 glide-compose = "1.0.0-beta01"
 
 [libraries]
-desugaring = { module = "com.android.tools:desugar_jdk_libs", version = "2.0.3" }
+desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.0.3" }
 
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version = "1.8.0" }
@@ -38,12 +39,21 @@ destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = 
 
 slf4j-android = { group = "org.slf4j", name = "slf4j-android", version = "1.7.36" }
 
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-glide-compose = { module = "com.github.bumptech.glide:compose", version.ref = "glide-compose" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide-compose" }
 
-color-picker = { module = "com.godaddy.android.colorpicker:compose-color-picker", version = "0.7.0" }
+color-picker = { group = "com.godaddy.android.colorpicker", name = "compose-color-picker", version = "0.7.0" }
+
+# Testing
+robolectric = { group = "org.robolectric", name = "robolectric", version = "4.11.1" }
+roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
+roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
+junit = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.5" }
+ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "compose-compiler" }
+ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose-compiler" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }

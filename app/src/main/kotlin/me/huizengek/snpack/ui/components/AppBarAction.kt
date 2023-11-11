@@ -7,14 +7,19 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 
 @Composable
-fun AppBarAction(icon: ImageVector, onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
-        Icon(imageVector = icon, contentDescription = null)
-    }
+fun AppBarAction(
+    icon: ImageVector,
+    contentDescription: String? = null,
+    onClick: () -> Unit
+) = IconButton(onClick = onClick) {
+    Icon(imageVector = icon, contentDescription = contentDescription)
 }
+
 @Composable
-fun AppBarAction(painter: Painter, onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
-        Icon(painter = painter, contentDescription = null)
-    }
+fun AppBarAction(
+    painter: Painter,
+    contentDescription: String? = null,
+    onClick: () -> Unit
+) = IconButton(onClick = onClick) {
+    Icon(painter = painter, contentDescription = contentDescription)
 }
