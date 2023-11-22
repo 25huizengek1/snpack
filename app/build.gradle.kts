@@ -84,6 +84,7 @@ dependencies {
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)
     implementation(libs.activity.ktx)
+
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
     implementation(libs.ui.graphics)
@@ -100,6 +101,7 @@ dependencies {
 
     implementation(libs.glide)
     implementation(libs.glide.compose)
+    ksp(libs.glide.ksp)
 
     implementation(libs.color.picker)
 

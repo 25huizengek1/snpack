@@ -49,9 +49,9 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.navigate
 import kotlinx.coroutines.launch
 import me.huizengek.snpack.LocalNavigator
-import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.destinations.NavRootDestination
 import me.huizengek.snpack.destinations.StickerPackScreenDestination
+import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.ui.components.NavigationAwareBack
 import me.huizengek.snpack.ui.components.TopAppBarTitle
 import me.huizengek.snpack.util.uriSaver
@@ -77,14 +77,13 @@ fun CreateNewPackScreen() {
         onSave = {
             imageUri?.useAsFile("image/*") {
                 val pack = StickerRepository.insertPack(
-                    name,
-                    publisher,
-                    BitmapFactory.decodeStream(it)
+                    name = name,
+                    publisher = publisher,
+                    trayImage = BitmapFactory.decodeStream(it)
                 )
-                if (pack != null)
-                    navigator.navigate(StickerPackScreenDestination(packId = pack.id)) {
-                        popUpTo(NavRootDestination.route)
-                    }
+                if (pack != null) navigator.navigate(StickerPackScreenDestination(packId = pack.id)) {
+                    popUpTo(NavRootDestination.route)
+                }
             }
         }
     )
