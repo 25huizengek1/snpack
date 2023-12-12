@@ -13,6 +13,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.captureRoboImage
 import me.huizengek.snpack.preferences.ThemePreferences
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,24 +31,24 @@ class Screenshots {
     private var atomic = 1
         get() = field++
 
-    @Test
-    fun testTakeScreenshots() = with(composeTestRule) {
+    @Before
+    fun prepare() = with(composeTestRule) {
         onNodeWithText(composeTestRule.activity.getString(R.string.app_label)).assertIsDisplayed()
+    }.let { }
 
-        takeAll("en_US")
-        takeAll("nl_NL")
+    @Test
+    @Config(qualifiers = "+en")
+    fun testTakeScreenshotsEnglish() = with(composeTestRule) {
+        takeAll("en-US")
+    }
+
+    @Test
+    @Config(qualifiers = "+nl")
+    fun testTakeScreenshotsDutch() = with(composeTestRule) {
+        takeAll("nl-NL")
     }
 
     private fun takeAll(tag: String) {
-        val locale = Locale.forLanguageTag(tag)
-
-        Locale.setDefault(locale)
-        val res = composeTestRule.activity.resources
-        val conf = res.configuration
-        conf.setLocale(locale)
-        @Suppress("DEPRECATION")
-        res.updateConfiguration(conf, res.displayMetrics)
-
         ThemePreferences.theme = ThemePreferences.Theme.LIGHT
         ThemePreferences.isDynamic = false
         take("light_static", tag)
