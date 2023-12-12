@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty
 
 private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-fun <T> sharedPreferencesProperty(
+fun <T : Any> sharedPreferencesProperty(
     getValue: SharedPreferences.(key: String) -> T,
     setValue: SharedPreferences.Editor.(key: String, value: T) -> Unit,
     defaultValue: T
@@ -23,26 +23,23 @@ fun <T> sharedPreferencesProperty(
     private var listener: SharedPreferences.OnSharedPreferenceChangeListener? = null
 
     override fun getValue(thisRef: PreferencesHolder, property: KProperty<*>): T {
-        if (listener == null && !Snapshot.current.readOnly) {
+        if (listener == null && !Snapshot.current.readOnly && !Snapshot.current.root.readOnly) {
             state.value = thisRef.getValue(property.name)
             listener = SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
                 if (key == property.name) preferences.getValue(property.name)
-                    .let { if (it != state) state.value = it }
+                    .let { if (it != state && !Snapshot.current.readOnly) state.value = it }
             }
             thisRef.registerOnSharedPreferenceChangeListener(listener)
         }
         return state.value
     }
 
-    override fun setValue(thisRef: PreferencesHolder, property: KProperty<*>, value: T) {
-        if (state == value || Snapshot.current.readOnly) return
-        state.value = value
+    override fun setValue(thisRef: PreferencesHolder, property: KProperty<*>, value: T) =
         coroutineScope.launch {
             thisRef.edit(commit = true) {
                 setValue(property.name, value)
             }
-        }
-    }
+        }.let { }
 }
 
 /**
@@ -61,7 +58,7 @@ open class PreferencesHolder(
         defaultValue
     )
 
-    fun string(defaultValue: String?) = sharedPreferencesProperty(
+    fun string(defaultValue: String) = sharedPreferencesProperty(
         getValue = { getString(it, null) ?: defaultValue },
         setValue = { k, v -> putString(k, v) },
         defaultValue
@@ -85,12 +82,11 @@ open class PreferencesHolder(
         defaultValue
     )
 
-    inline fun <reified T : Enum<T>> enum(defaultValue: T?) = sharedPreferencesProperty(
+    inline fun <reified T : Enum<T>> enum(defaultValue: T) = sharedPreferencesProperty(
         getValue = {
-            getString(it, null)?.let { runCatching { enumValueOf<T>(it) }.getOrNull() }
-                ?: defaultValue
+            getString(it, null)?.let { runCatching { enumValueOf<T>(it) }.getOrNull() } ?: defaultValue
         },
-        setValue = { k, v -> putString(k, v?.name) },
+        setValue = { k, v -> putString(k, v.name) },
         defaultValue
     )
 
