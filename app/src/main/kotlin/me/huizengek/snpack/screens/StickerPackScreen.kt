@@ -38,6 +38,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -83,19 +85,21 @@ fun StickerPackScreen(packId: Long) {
                 TopAppBar(
                     title = {
                         TopAppBarTitle(
-                            title = if (selecting) "${selected.size} geselecteerd"
-                            else actualPack.pack.name
+                            title = if (selecting) stringResource(
+                                R.string.format_selected_count,
+                                selected.size
+                            ) else actualPack.pack.name
                         )
                     },
                     actions = {
                         var opened by remember { mutableStateOf(false) }
                         if (opened) ConfirmationDialog(
-                            title = "Echt verwijderen?",
-                            question = "Weet je zeker dat je ${
-                                if (selecting) "de sticker${if (selected.size == 1) "" else "s"}"
-                                else "het stickerpakket"
-                            } wilt verwijderen?",
-                            confirmButton = "Verwijder",
+                            title = stringResource(R.string.delete_confirmation_title),
+                            question = if (selecting) pluralStringResource(
+                                id = R.plurals.delete_confirmation_description,
+                                count = selected.size
+                            ) else stringResource(R.string.delete_all_confirmation_description),
+                            confirmButton = stringResource(R.string.delete),
                             icon = {
                                 Icon(
                                     imageVector = Icons.Filled.Delete,
@@ -131,7 +135,7 @@ fun StickerPackScreen(packId: Long) {
                                 if (actualPack.stickers.size !in (3..30))
                                     return@AppBarAction coroutineScope.launch {
                                         snackbarHostState
-                                            .showSnackbar("Het stickerpakket moet tussen de 3 en 30 (inclusief) stickers hebben om geaccepteerd te worden door Whatsapp als pack")
+                                            .showSnackbar(context.getString(R.string.error_pack_out_of_bounds))
                                     }.let {}
                                 context.findActivity()?.apply {
                                     actualPack.pack.addToWhatsapp()
@@ -161,7 +165,7 @@ fun StickerPackScreen(packId: Long) {
                         navigator.navigate(CreateNewStickerScreenDestination(packId = actualPack.pack.id))
                     },
                     icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = null) },
-                    text = { Text(text = "Nieuwe sticker") }
+                    text = { Text(text = stringResource(R.string.new_sticker)) }
                 )
             },
             snackbarHost = { SnackbarHost(hostState = snackbarHostState) }

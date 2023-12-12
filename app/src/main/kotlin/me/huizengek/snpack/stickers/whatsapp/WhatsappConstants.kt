@@ -14,3 +14,6 @@ const val STICKERS_ASSET_CODE = 4
 const val STICKER_PACK_TRAY_ICON_CODE = 5
 
 const val STICKERS_FOLDER = "stickers"
+
+const val WHATSAPP_APPLE_LINK = "https://apps.apple.com/nl/app/whatsapp-messenger/id310633997"
+const val WHATSAPP_ANDROID_LINK = "https://play.google.com/store/apps/details?id=com.whatsapp"

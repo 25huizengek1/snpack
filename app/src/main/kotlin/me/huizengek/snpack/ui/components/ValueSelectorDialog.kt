@@ -31,7 +31,7 @@ inline fun <T> ValueSelectorDialog(
     selectedValue: T,
     values: List<T>,
     crossinline onValueSelected: (T) -> Unit,
-    crossinline valueDisplayText: (T) -> String = { it.toString() },
+    crossinline valueDisplayText: @Composable (T) -> String = { it.toString() },
     shape: Shape = AlertDialogDefaults.shape,
     containerColor: Color = AlertDialogDefaults.containerColor,
     tonalElevation: Dp = AlertDialogDefaults.TonalElevation,

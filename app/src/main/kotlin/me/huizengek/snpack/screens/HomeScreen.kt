@@ -27,15 +27,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.ramcosta.composedestinations.navigation.navigate
 import me.huizengek.snpack.LocalNavigator
-import me.huizengek.snpack.stickers.StickerRepository
+import me.huizengek.snpack.R
 import me.huizengek.snpack.destinations.CreateNewPackScreenDestination
 import me.huizengek.snpack.destinations.SettingsScreenDestination
 import me.huizengek.snpack.destinations.StickerPackScreenDestination
+import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.ui.components.AppBarAction
 import me.huizengek.snpack.ui.components.TopAppBarTitle
 import me.huizengek.snpack.util.resolveStickerImage
@@ -51,12 +53,12 @@ fun HomeScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { TopAppBarTitle(title = "snpack") },
+                title = { TopAppBarTitle(title = stringResource(R.string.app_label)) },
                 actions = {
                     AppBarAction(
                         onClick = { navigator.navigate(SettingsScreenDestination) },
                         icon = Icons.Filled.Settings,
-                        contentDescription = "Instellingen" // for testing
+                        contentDescription = stringResource(R.string.settings) // for testing
                     )
                 }
             )
@@ -64,7 +66,7 @@ fun HomeScreen() {
             ExtendedFloatingActionButton(
                 onClick = { navigator.navigate(CreateNewPackScreenDestination) },
                 icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = null) },
-                text = { Text(text = "Nieuw stickerpakket") },
+                text = { Text(text = stringResource(R.string.new_pack)) },
                 modifier = Modifier.testTag("homeFab")
             )
         }
@@ -88,7 +90,14 @@ fun HomeScreen() {
                             )
                         },
                         headlineContent = { Text(text = it.pack.name) },
-                        supportingContent = { Text(text = "${it.stickers.size} stickers") },
+                        supportingContent = {
+                            Text(
+                                text = stringResource(
+                                    R.string.format_sticker_count,
+                                    it.stickers.size
+                                )
+                            )
+                        },
                         trailingContent = {
                             Text(text = Formatter.formatShortFileSize(context, it.totalSize))
                         },

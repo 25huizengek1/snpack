@@ -6,6 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import me.huizengek.snpack.stickers.whatsapp.WHATSAPP_ANDROID_LINK
+import me.huizengek.snpack.stickers.whatsapp.WHATSAPP_APPLE_LINK
 
 @Entity
 data class StickerPack(
@@ -21,8 +23,8 @@ data class StickerPack(
     val imageDataVersion: Long = 1,
     val avoidCache: Boolean = false,
     val animatedStickerPack: Boolean = false,
-    val iosAppStoreLink: String = "https://apps.apple.com/nl/app/whatsapp-messenger/id310633997",
-    val androidPlayStoreLink: String = "https://play.google.com/store/apps/details?id=com.whatsapp"
+    val iosAppStoreLink: String = WHATSAPP_APPLE_LINK,
+    val androidPlayStoreLink: String = WHATSAPP_ANDROID_LINK
 )
 
 @Entity(

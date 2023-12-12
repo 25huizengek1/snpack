@@ -18,6 +18,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -31,38 +32,54 @@ class Screenshots {
 
     @Test
     fun testTakeScreenshots() = with(composeTestRule) {
-        onNodeWithText("snpack").assertIsDisplayed()
+        onNodeWithText(composeTestRule.activity.getString(R.string.app_label)).assertIsDisplayed()
+
+        takeAll("en_US")
+        takeAll("nl_NL")
+    }
+
+    private fun takeAll(tag: String) {
+        val locale = Locale.forLanguageTag(tag)
+
+        Locale.setDefault(locale)
+        val res = composeTestRule.activity.resources
+        val conf = res.configuration
+        conf.setLocale(locale)
+        @Suppress("DEPRECATION")
+        res.updateConfiguration(conf, res.displayMetrics)
 
         ThemePreferences.theme = ThemePreferences.Theme.LIGHT
         ThemePreferences.isDynamic = false
-        take("light_static")
+        take("light_static", tag)
         ThemePreferences.isDynamic = true
-        take("light_dynamic")
+        take("light_dynamic", tag)
 
         ThemePreferences.theme = ThemePreferences.Theme.DARK
         ThemePreferences.isDynamic = false
-        take("dark_static")
+        take("dark_static", tag)
         ThemePreferences.isDynamic = true
-        take("dark_dynamic")
+        take("dark_dynamic", tag)
+
+        atomic = 1
     }
 
     @OptIn(ExperimentalTestApi::class)
-    private fun take(prefix: String) = with(composeTestRule) {
-        createScreenshot("${prefix}_home")
+    private fun take(prefix: String, tag: String) = with(composeTestRule) {
+        createScreenshot("${prefix}_home", tag)
 
         waitUntilAtLeastOneExists(hasTestTag("homeFab"))
         onNodeWithTag("homeFab").performClick()
-        waitUntilAtLeastOneExists(hasText("Opslaan"))
-        createScreenshot("${prefix}_new_pack")
+        waitUntilAtLeastOneExists(hasText(activity.getString(R.string.save)))
+        createScreenshot("${prefix}_new_pack", tag)
 
         activity.onBackPressedDispatcher.onBackPressed()
-        waitUntilAtLeastOneExists(hasText("snpack"))
-        onNodeWithContentDescription("Instellingen").performClick()
-        createScreenshot("${prefix}_settings")
+        waitUntilAtLeastOneExists(hasText(activity.getString(R.string.app_label)))
+        onNodeWithContentDescription(activity.getString(R.string.settings)).performClick()
+        createScreenshot("${prefix}_settings", tag)
 
         activity.onBackPressedDispatcher.onBackPressed()
     }
 
-    private fun createScreenshot(name: String) = composeTestRule.onRoot()
-        .captureRoboImage("../fastlane/metadata/android/nl-NL/images/phoneScreenshots/${atomic}-$name.png")
+    private fun createScreenshot(name: String, tag: String) = composeTestRule.onRoot()
+        .captureRoboImage("../fastlane/metadata/android/$tag/images/phoneScreenshots/${atomic}-$name.png")
 }

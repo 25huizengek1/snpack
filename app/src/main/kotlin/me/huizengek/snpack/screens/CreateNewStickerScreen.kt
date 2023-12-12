@@ -56,6 +56,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -115,7 +116,7 @@ fun CreateNewStickerScreen(packId: Long) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { TopAppBarTitle(title = "Nieuwe sticker") },
+                    title = { TopAppBarTitle(title = stringResource(R.string.new_sticker)) },
                     navigationIcon = { NavigationAwareBack() }
                 )
             },
@@ -136,7 +137,7 @@ fun CreateNewStickerScreen(packId: Long) {
                     Tab(
                         selected = tab == 0,
                         onClick = { tab = 0 },
-                        text = { Text(text = "Afbeelding") },
+                        text = { Text(text = stringResource(R.string.image)) },
                         icon = {
                             Icon(
                                 painter = painterResource(id = R.drawable.image),
@@ -147,7 +148,7 @@ fun CreateNewStickerScreen(packId: Long) {
                     Tab(
                         selected = tab == 1,
                         onClick = { tab = 1 },
-                        text = { Text(text = "Tekst") },
+                        text = { Text(text = stringResource(R.string.text)) },
                         icon = {
                             Icon(
                                 painter = painterResource(id = R.drawable.text),
@@ -174,7 +175,7 @@ fun CreateNewStickerScreen(packId: Long) {
                     }) {
                         Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                         Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
-                        Text(text = "Kies sticker")
+                        Text(text = stringResource(R.string.choose_sticker))
                     }
                 } else {
                     OutlinedTextField(
@@ -183,13 +184,13 @@ fun CreateNewStickerScreen(packId: Long) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp),
-                        label = { Text(text = "Tekst") }
+                        label = { Text(text = stringResource(R.string.text)) }
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "Tekstgrootte",
+                        text = stringResource(R.string.text_size),
                         modifier = Modifier
                             .align(Alignment.Start)
                             .padding(start = 16.dp)
@@ -202,7 +203,7 @@ fun CreateNewStickerScreen(packId: Long) {
                     )
 
                     Text(
-                        text = "Contourdikte",
+                        text = stringResource(R.string.contour_thickness),
                         modifier = Modifier
                             .align(Alignment.Start)
                             .padding(start = 16.dp)
@@ -215,13 +216,13 @@ fun CreateNewStickerScreen(packId: Long) {
                     )
 
                     ColorSelector(
-                        name = "Kleur tekst",
+                        name = stringResource(R.string.text_color),
                         color = fillColor,
                         setColor = { fillColor = it },
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
                     ColorSelector(
-                        name = "Kleur contour",
+                        name = stringResource(R.string.text_contour_color),
                         color = strokeColor,
                         setColor = { strokeColor = it },
                         modifier = Modifier.padding(vertical = 8.dp)
@@ -254,17 +255,16 @@ fun CreateNewStickerScreen(packId: Long) {
                     onClick = {
                         coroutineScope.launch {
                             val actualEmojis = emojis.values.toList()
-                            if (actualEmojis.firstOrNull()
-                                    .isNullOrBlank()
-                            ) return@launch snackbarHostState
-                                .showSnackbar("Er is op z'n minst één emoji nodig voor deze sticker!")
-                                .let { }
+                            if (actualEmojis.firstOrNull().isNullOrBlank())
+                                return@launch snackbarHostState
+                                    .showSnackbar(context.getString(R.string.error_sticker_no_emojis))
+                                    .let { }
 
                             val sticker = with(context) {
                                 val stickerImage =
                                     if (tab == 0) imageUri?.toSticker()
                                         ?: return@launch snackbarHostState
-                                            .showSnackbar("Er is geen sticker gekozen, kies deze eerst")
+                                            .showSnackbar(getString(R.string.error_sticker_no_image))
                                             .let { }
                                     else text.ifBlank { null }?.toSticker(
                                         size = size,
@@ -272,7 +272,7 @@ fun CreateNewStickerScreen(packId: Long) {
                                         fillColor = fillColor.toArgb(),
                                         strokeColor = strokeColor.toArgb()
                                     ) ?: return@launch snackbarHostState
-                                        .showSnackbar("Er is geen tekst ingevoerd, doe dat eerst")
+                                        .showSnackbar(getString(R.string.error_sticker_no_text))
                                         .let { }
                                 StickerRepository.insertSticker(
                                     pack = actualPack.pack,
@@ -290,7 +290,7 @@ fun CreateNewStickerScreen(packId: Long) {
                 ) {
                     Icon(imageVector = Icons.Filled.Check, contentDescription = null)
                     Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
-                    Text(text = "Opslaan")
+                    Text(text = stringResource(R.string.save))
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))

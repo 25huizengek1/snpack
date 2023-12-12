@@ -23,9 +23,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.godaddy.android.colorpicker.ClassicColorPicker
 import com.godaddy.android.colorpicker.HsvColor
+import me.huizengek.snpack.R
 
 private fun Color.toHsv(): HsvColor {
     val out = FloatArray(3)
@@ -48,19 +50,20 @@ fun ColorPickerDialog(
 ) = AlertDialog(
     onDismissRequest = { onDismiss() },
     icon = { Icon(imageVector = Icons.Filled.Edit, contentDescription = null) },
-    title = { Text(text = "Color picker") },
+    title = { Text(text = stringResource(R.string.color_picker)) },
     text = {
         Column {
             text?.let { Text(text = it) }
             Spacer(modifier = Modifier.height(4.dp))
             ClassicColorPicker(
                 color = initialColor.toHsv(),
-                onColorChanged = { setColor(it.toColor()) })
+                onColorChanged = { setColor(it.toColor()) }
+            )
         }
     },
     confirmButton = {
         Button(onClick = { onDismiss() }) {
-            Text(text = "OK")
+            Text(text = stringResource(R.string.ok_button))
         }
     }
 )

@@ -42,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -49,6 +50,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.navigate
 import kotlinx.coroutines.launch
 import me.huizengek.snpack.LocalNavigator
+import me.huizengek.snpack.R
 import me.huizengek.snpack.destinations.NavRootDestination
 import me.huizengek.snpack.destinations.StickerPackScreenDestination
 import me.huizengek.snpack.stickers.StickerRepository
@@ -67,7 +69,7 @@ fun CreateNewPackScreen() {
     var imageUri by rememberSaveable(stateSaver = uriSaver) { mutableStateOf(null) }
 
     PackEditorScreen(
-        title = "Nieuw stickerpakket",
+        title = stringResource(R.string.new_pack),
         name = name,
         setName = { name = it },
         publisher = publisher,
@@ -131,8 +133,8 @@ fun PackEditorScreen(
                     .padding(horizontal = 16.dp),
                 singleLine = true,
                 maxLines = 1,
-                placeholder = { Text(text = "bijv. 'stikkers'") },
-                label = { Text(text = "Naam") }
+                placeholder = { Text(text = stringResource(R.string.pack_name_placeholder)) },
+                label = { Text(text = stringResource(R.string.name)) }
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -145,7 +147,7 @@ fun PackEditorScreen(
                     .padding(horizontal = 16.dp),
                 singleLine = true,
                 maxLines = 1,
-                label = { Text(text = "Maker") }
+                label = { Text(text = stringResource(R.string.publisher)) }
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -166,15 +168,15 @@ fun PackEditorScreen(
                 ) {
                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                     Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
-                    Text(text = "Kies icoon")
+                    Text(text = stringResource(R.string.choose_icon))
                 }
                 Button(onClick = {
                     coroutineScope.launch {
                         if (name.isBlank() || publisher.isBlank()) return@launch snackbarHostState
-                            .showSnackbar("De naam van het pakket / de maker mag niet leeg zijn!")
+                            .showSnackbar(context.getString(R.string.error_pack_empty_field))
                             .let { }
                         if (imageUri == null) return@launch snackbarHostState
-                            .showSnackbar("Je hebt nog geen afbeelding gekozen; kies deze eerst")
+                            .showSnackbar(context.getString(R.string.error_pack_no_image))
                             .let { }
 
                         with(context) { onSave() }
@@ -182,7 +184,7 @@ fun PackEditorScreen(
                 }) {
                     Icon(imageVector = Icons.Filled.Check, contentDescription = null)
                     Spacer(modifier = Modifier.width(ButtonDefaults.IconSpacing))
-                    Text(text = "Opslaan")
+                    Text(text = stringResource(R.string.save))
                 }
             }
 

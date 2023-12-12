@@ -20,11 +20,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import me.huizengek.snpack.R
 import kotlin.math.ceil
 
-private val categories = mapOf(
-    "Blij" to listOf(
+private val categories @Composable get() = mapOf(
+    stringResource(R.string.happy) to listOf(
         "😀",
         "😃",
         "😄",
@@ -49,7 +51,7 @@ private val categories = mapOf(
         "😊",
         "👋"
     ),
-    "Liefde" to listOf(
+    stringResource(R.string.love) to listOf(
         "❤",
         "😍",
         "😘",
@@ -96,7 +98,7 @@ private val categories = mapOf(
         "😽",
         "❣️"
     ),
-    "Verdrietig" to listOf(
+    stringResource(R.string.sad) to listOf(
         "☹",
         "😣",
         "😖",
@@ -127,7 +129,7 @@ private val categories = mapOf(
         "🌩",
         "🌧"
     ),
-    "Boos" to listOf(
+    stringResource(R.string.angry) to listOf(
         "😯",
         "😦",
         "😧",
@@ -152,7 +154,7 @@ private val categories = mapOf(
         "😒",
         "🥵"
     ),
-    "Feest" to listOf(
+    stringResource(R.string.party) to listOf(
         "🎊",
         "🎉",
         "🎁",
@@ -183,6 +185,7 @@ fun StickerEmojiPicker(
     gridCells: Int = 8
 ) = BoxWithConstraints(modifier = modifier) {
     val config = LocalConfiguration.current
+    val categories = categories
 
     LazyColumn(
         modifier = Modifier

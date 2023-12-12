@@ -92,7 +92,7 @@ inline fun <T> ValueSelectorSettingsEntry(
     values: List<T>,
     crossinline onValueSelected: (T) -> Unit,
     enabled: Boolean = true,
-    crossinline valueDisplayText: (T) -> String = { it.toString() },
+    crossinline valueDisplayText: @Composable (T) -> String = { it.toString() },
     noinline trailingContent: (@Composable () -> Unit)? = null
 ) {
     var open by remember { mutableStateOf(false) }
@@ -123,7 +123,7 @@ inline fun <reified T : Enum<T>> EnumSelectorSettingsEntry(
     selectedValue: T,
     crossinline onValueSelected: (T) -> Unit,
     enabled: Boolean = true,
-    crossinline valueDisplayText: (T) -> String = { it.name },
+    crossinline valueDisplayText: @Composable (T) -> String = { it.name },
     noinline trailingContent: (@Composable () -> Unit)? = null
 ) = ValueSelectorSettingsEntry(
     modifier = modifier,

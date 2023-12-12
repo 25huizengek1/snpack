@@ -24,12 +24,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.ramcosta.composedestinations.annotation.Destination
 import me.huizengek.snpack.Database
 import me.huizengek.snpack.LocalNavigator
+import me.huizengek.snpack.R
 import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.ui.components.AppBarAction
 import me.huizengek.snpack.ui.components.ConfirmationDialog
@@ -55,9 +58,12 @@ fun StickerScreen(stickerId: Long) {
                     var opened by remember { mutableStateOf(false) }
 
                     if (opened) ConfirmationDialog(
-                        title = "Echt verwijderen?",
-                        question = "Weet je zeker dat je deze sticker wilt verwijderen?",
-                        confirmButton = "Verwijder",
+                        title = stringResource(R.string.delete_confirmation_title),
+                        question = pluralStringResource(
+                            id = R.plurals.delete_confirmation_description,
+                            count = 1
+                        ),
+                        confirmButton = stringResource(R.string.delete),
                         icon = {
                             Icon(
                                 imageVector = Icons.Filled.Delete,

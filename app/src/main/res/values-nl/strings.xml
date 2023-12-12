@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="format_edit">Bewerk %1$s</string>
+    <string name="format_sticker_count">%1$s stickers</string>
+    <string name="format_selected_count">%1$s geselecteerd</string>
+
+    <string name="save">Opslaan</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel">Annuleer</string>
+    <string name="delete">Verwijder</string>
+
+    <string name="error_pack_empty_field">De naam van het pakket / de maker mag niet leeg zijn!</string>
+    <string name="error_pack_no_image">Je hebt nog geen afbeelding gekozen; kies deze eerst</string>
+    <string name="error_sticker_no_emojis">Er is op z\'n minst één emoji nodig voor deze sticker!</string>
+    <string name="error_sticker_no_image">Er is geen sticker gekozen, kies deze eerst</string>
+    <string name="error_sticker_no_text">Er is geen tekst ingevoerd, doe dat eerst</string>
+    <string name="error_pack_out_of_bounds">Het stickerpakket moet tussen de 3 en 30 (inclusief) stickers hebben om geaccepteerd te worden door Whatsapp als pack</string>
+    <string name="error_whatsapp_not_installed">Kon Whatsapp niet openen, controleer of Whatsapp juist geïnstalleerd is…</string>
+
+    <string name="new_pack">Nieuw stickerpakket</string>
+    <string name="name">Naam</string>
+    <string name="pack_name_placeholder">bijv. \'stikkers\'</string>
+    <string name="publisher">Gemaakt door</string>
+    <string name="choose_icon">Kies icoon</string>
+
+    <string name="new_sticker">Nieuwe sticker</string>
+    <string name="image">Afbeelding</string>
+    <string name="text">Tekst</string>
+    <string name="choose_sticker">Kies sticker</string>
+    <string name="text_size">Tekstgrootte</string>
+    <string name="contour_thickness">Contourdikte</string>
+    <string name="text_color">Kleur tekst</string>
+    <string name="text_contour_color">Kleur contour</string>
+    <string name="color_picker">Kies kleur…</string>
+
+    <string name="delete_confirmation_title">Echt verwijderen?</string>
+    <plurals name="delete_confirmation_description">
+        <item quantity="one">Weet je zeker dat je de sticker wilt verwijderen?</item>
+        <item quantity="other">Weet je zeker dat je de stickers wilt verwijderen?</item>
+    </plurals>
+    <string name="delete_all_confirmation_description">Weet je zeker dat je het stickerpakket wilt verwijderen?</string>
+
+    <string name="settings">Instellingen</string>
+
+    <string name="theme">Thema</string>
+    <string name="theme_system">Systeem</string>
+    <string name="theme_light">Licht</string>
+    <string name="theme_dark">Donker</string>
+
+    <string name="appearance">Uiterlijk</string>
+    <string name="dynamic_theme">Dynamisch thema</string>
+    <string name="dynamic_theme_description">Maakt het thema van de app dynamisch a.d.h.v. je achtergrond. Vereist Android 12 of hoger.</string>
+    <string name="add_to_title">Toevoegen aan…</string>
+
+    <string name="happy">Blij</string>
+    <string name="love">Liefde</string>
+    <string name="sad">Verdrietig</string>
+    <string name="angry">Boos</string>
+    <string name="party">Feest</string>
+</resources>

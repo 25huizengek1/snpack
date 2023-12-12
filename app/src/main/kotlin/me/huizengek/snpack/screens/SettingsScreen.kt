@@ -8,7 +8,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.ramcosta.composedestinations.annotation.Destination
+import me.huizengek.snpack.R
 import me.huizengek.snpack.preferences.ThemePreferences
 import me.huizengek.snpack.ui.components.EnumSelectorSettingsEntry
 import me.huizengek.snpack.ui.components.NavigationAwareBack
@@ -23,7 +25,7 @@ import me.huizengek.snpack.util.isAtLeastAndroid12
 @Composable
 fun SettingsScreen() = Scaffold(topBar = {
     TopAppBar(
-        title = { TopAppBarTitle(title = "Instellingen") },
+        title = { TopAppBarTitle(title = stringResource(R.string.settings)) },
         navigationIcon = { NavigationAwareBack() }
     )
 }) { paddingValues ->
@@ -32,16 +34,16 @@ fun SettingsScreen() = Scaffold(topBar = {
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        SettingsGroupText(title = "Uiterlijk")
+        SettingsGroupText(title = stringResource(R.string.appearance))
         EnumSelectorSettingsEntry(
-            title = "Thema",
-            selectedValue = ThemePreferences.theme ?: ThemePreferences.Theme.SYSTEM,
+            title = stringResource(R.string.theme),
+            selectedValue = ThemePreferences.theme,
             onValueSelected = { ThemePreferences.theme = it },
-            valueDisplayText = { it.displayName }
+            valueDisplayText = { it.displayName() }
         )
         SwitchSettingsEntry(
-            title = "Dynamisch thema",
-            description = "Maakt het thema van de app dynamisch a.d.h.v. je achtergrond. Vereist Android 12 of hoger.",
+            title = stringResource(R.string.dynamic_theme),
+            description = stringResource(R.string.dynamic_theme_description),
             state = ThemePreferences.isDynamic,
             setState = { ThemePreferences.isDynamic = it },
             enabled = isAtLeastAndroid12
