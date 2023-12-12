@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.0-alpha13"
+agp = "8.3.0-alpha16"
 kotlin = "1.9.20"
 ksp = "1.9.20-1.0.14"
 roborazzi = "1.8.0-alpha-4"
@@ -11,7 +11,7 @@ compose-bom = "2023.10.01"
 
 compose-compiler = "1.5.4"
 
-room = "2.6.0"
+room = "2.6.1"
 destinations = "1.9.54"
 
 glide = "4.14.2"
@@ -28,7 +28,7 @@ activity-compose = { group = "androidx.activity", name = "activity-compose", ver
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.0-alpha11" }
+material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.0-alpha12" }
 
 room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
