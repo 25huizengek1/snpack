@@ -3,6 +3,7 @@ agp = "8.3.0-alpha16"
 kotlin = "1.9.20"
 ksp = "1.9.20-1.0.14"
 roborazzi = "1.8.0-alpha-4"
+detekt = "1.23.3"
 
 core-ktx = "1.12.0"
 lifecycle-runtime-ktx = "2.6.2"
@@ -30,6 +31,8 @@ ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.0-alpha12" }
 
+kotlinx-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version = "0.3.6" }
+
 room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-ksp = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
@@ -45,6 +48,9 @@ glide-ksp = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "
 
 color-picker = { group = "com.godaddy.android.colorpicker", name = "compose-color-picker", version = "0.7.0" }
 
+detekt_compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.4" }
+detekt_formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+
 # Testing
 robolectric = { group = "org.robolectric", name = "robolectric", version = "4.11.1" }
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
@@ -58,3 +64,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

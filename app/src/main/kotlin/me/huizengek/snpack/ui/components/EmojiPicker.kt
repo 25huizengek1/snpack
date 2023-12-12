@@ -218,7 +218,8 @@ fun StickerEmojiPicker(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .aspectRatio(1f)
-                                    .clickable { onPicked(it) }) {
+                                    .clickable { onPicked(it) }
+                            ) {
                                 Text(
                                     text = it,
                                     modifier = Modifier.align(Alignment.Center)

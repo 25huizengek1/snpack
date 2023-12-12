@@ -22,19 +22,20 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 inline fun <T> ValueSelectorDialog(
-    modifier: Modifier = Modifier,
-    noinline onDismiss: () -> Unit,
     title: String,
     selectedValue: T,
-    values: List<T>,
+    values: ImmutableList<T>,
     crossinline onValueSelected: (T) -> Unit,
+    modifier: Modifier = Modifier,
     crossinline valueDisplayText: @Composable (T) -> String = { it.toString() },
     shape: Shape = AlertDialogDefaults.shape,
     containerColor: Color = AlertDialogDefaults.containerColor,
     tonalElevation: Dp = AlertDialogDefaults.TonalElevation,
+    noinline onDismiss: () -> Unit
 ) = Dialog(onDismissRequest = onDismiss) {
     Surface(
         shape = shape,

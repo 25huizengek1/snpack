@@ -28,12 +28,14 @@ data class StickerPack(
 )
 
 @Entity(
-    foreignKeys = [ForeignKey(
-        entity = StickerPack::class,
-        parentColumns = ["id"],
-        childColumns = ["packId"],
-        onDelete = ForeignKey.CASCADE
-    )],
+    foreignKeys = [
+        ForeignKey(
+            entity = StickerPack::class,
+            parentColumns = ["id"],
+            childColumns = ["packId"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
     indices = [Index(value = ["packId"])]
 )
 data class Sticker(

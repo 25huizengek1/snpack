@@ -16,8 +16,8 @@ import me.huizengek.snpack.LocalNavigator
 import me.huizengek.snpack.R
 import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.util.resolveStickerImage
-import me.huizengek.snpack.util.useAsFile
 import me.huizengek.snpack.util.uriSaver
+import me.huizengek.snpack.util.useAsFile
 
 @Destination
 @Composable

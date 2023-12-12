@@ -19,7 +19,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
-import java.util.Locale
 
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -82,5 +81,5 @@ class Screenshots {
     }
 
     private fun createScreenshot(name: String, tag: String) = composeTestRule.onRoot()
-        .captureRoboImage("../fastlane/metadata/android/$tag/images/phoneScreenshots/${atomic}-$name.png")
+        .captureRoboImage("../fastlane/metadata/android/$tag/images/phoneScreenshots/$atomic-$name.png")
 }

@@ -90,6 +90,8 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.material3)
 
+    implementation(libs.kotlinx.immutable)
+
     implementation(libs.room)
     implementation(libs.room.ktx)
     ksp(libs.room.ksp)
@@ -104,6 +106,9 @@ dependencies {
     ksp(libs.glide.ksp)
 
     implementation(libs.color.picker)
+
+    detektPlugins(libs.detekt.compose)
+    detektPlugins(libs.detekt.formatting)
 
     testImplementation(libs.robolectric)
     testImplementation(libs.roborazzi)

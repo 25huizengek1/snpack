@@ -49,20 +49,21 @@ import kotlinx.coroutines.launch
 import me.huizengek.snpack.Database
 import me.huizengek.snpack.LocalNavigator
 import me.huizengek.snpack.R
-import me.huizengek.snpack.stickers.StickerRepository
-import me.huizengek.snpack.stickers.whatsapp.addToWhatsapp
 import me.huizengek.snpack.destinations.CreateNewStickerScreenDestination
 import me.huizengek.snpack.destinations.EditPackScreenDestination
 import me.huizengek.snpack.destinations.StickerScreenDestination
-import me.huizengek.snpack.util.findActivity
-import me.huizengek.snpack.util.resolveStickerImage
+import me.huizengek.snpack.stickers.StickerRepository
+import me.huizengek.snpack.stickers.whatsapp.addToWhatsapp
 import me.huizengek.snpack.ui.components.AppBarAction
 import me.huizengek.snpack.ui.components.ConfirmationDialog
 import me.huizengek.snpack.ui.components.NavigationAwareBack
 import me.huizengek.snpack.ui.components.TopAppBarTitle
+import me.huizengek.snpack.util.findActivity
+import me.huizengek.snpack.util.resolveStickerImage
 
 @OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class,
+    ExperimentalMaterial3Api::class,
+    ExperimentalGlideComposeApi::class,
     ExperimentalFoundationApi::class
 )
 @Destination

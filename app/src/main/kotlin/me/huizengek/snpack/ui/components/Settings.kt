@@ -20,11 +20,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun SettingsGroupText(
-    modifier: Modifier = Modifier,
-    title: String
+    title: String,
+    modifier: Modifier = Modifier
 ) = Text(
     text = title.uppercase(),
     style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.primary),
@@ -38,12 +40,12 @@ fun SettingsGroupSpacer(modifier: Modifier = Modifier) = Spacer(modifier = modif
 
 @Composable
 fun SettingsEntry(
-    modifier: Modifier = Modifier,
     title: String,
+    modifier: Modifier = Modifier,
     description: String? = null,
-    onClick: (() -> Unit)? = null,
     enabled: Boolean = true,
-    trailingContent: (@Composable () -> Unit)? = null
+    trailingContent: (@Composable () -> Unit)? = null,
+    onClick: (() -> Unit)? = null
 ) {
     val animatedAlpha by animateFloatAsState(targetValue = if (enabled) 1f else 0.5f, label = "")
 
@@ -61,11 +63,11 @@ fun SettingsEntry(
 
 @Composable
 fun SwitchSettingsEntry(
-    modifier: Modifier = Modifier,
     title: String,
-    description: String? = null,
     state: Boolean,
     setState: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    description: String? = null,
     enabled: Boolean = true
 ) = SettingsEntry(
     modifier = modifier,
@@ -86,11 +88,11 @@ fun SwitchSettingsEntry(
 
 @Composable
 inline fun <T> ValueSelectorSettingsEntry(
-    modifier: Modifier = Modifier,
     title: String,
     selectedValue: T,
-    values: List<T>,
+    values: ImmutableList<T>,
     crossinline onValueSelected: (T) -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     crossinline valueDisplayText: @Composable (T) -> String = { it.toString() },
     noinline trailingContent: (@Composable () -> Unit)? = null
@@ -118,10 +120,10 @@ inline fun <T> ValueSelectorSettingsEntry(
 
 @Composable
 inline fun <reified T : Enum<T>> EnumSelectorSettingsEntry(
-    modifier: Modifier = Modifier,
     title: String,
     selectedValue: T,
     crossinline onValueSelected: (T) -> Unit,
+    modifier: Modifier = Modifier,
     enabled: Boolean = true,
     crossinline valueDisplayText: @Composable (T) -> String = { it.name },
     noinline trailingContent: (@Composable () -> Unit)? = null
@@ -129,7 +131,7 @@ inline fun <reified T : Enum<T>> EnumSelectorSettingsEntry(
     modifier = modifier,
     title = title,
     selectedValue = selectedValue,
-    values = enumValues<T>().toList(),
+    values = enumValues<T>().toList().toImmutableList(),
     onValueSelected = onValueSelected,
     enabled = enabled,
     valueDisplayText = valueDisplayText,

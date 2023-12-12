@@ -292,12 +292,12 @@ fun SnpackTheme(
 
     val colorScheme =
         if (ThemePreferences.isDynamic && isAtLeastAndroid12) when (ThemePreferences.theme) {
-            ThemePreferences.Theme.SYSTEM, null -> if (darkTheme)
+            ThemePreferences.Theme.SYSTEM -> if (darkTheme)
                 dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
             ThemePreferences.Theme.LIGHT -> dynamicLightColorScheme(context)
             ThemePreferences.Theme.DARK -> dynamicDarkColorScheme(context)
         } else when (ThemePreferences.theme) {
-            ThemePreferences.Theme.SYSTEM, null -> if (darkTheme) darkColors else lightColors
+            ThemePreferences.Theme.SYSTEM -> if (darkTheme) darkColors else lightColors
             ThemePreferences.Theme.LIGHT -> lightColors
             ThemePreferences.Theme.DARK -> darkColors
         }

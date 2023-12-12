@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -30,7 +31,7 @@ import androidx.compose.ui.unit.sp
 fun EmojiDisplay(
     index: Int,
     setIndex: (Int) -> Unit,
-    emojis: MutableMap<Int, String>,
+    emojis: SnapshotStateMap<Int, String>,
     modifier: Modifier = Modifier,
     useHaptics: Boolean = true
 ) = Row(
@@ -42,13 +43,13 @@ fun EmojiDisplay(
 ) {
     val haptics = LocalHapticFeedback.current
 
-    (0..2).forEach {
+    for (i in 0..2) {
         val animatedCornerRadius by animateDpAsState(
-            targetValue = if (index == it) 12.dp else 8.dp,
+            targetValue = if (index == i) 12.dp else 8.dp,
             label = ""
         )
         val animatedBackground by animateColorAsState(
-            targetValue = if (index == it) MaterialTheme.colorScheme.surface
+            targetValue = if (index == i) MaterialTheme.colorScheme.surface
             else MaterialTheme.colorScheme.onSurface,
             label = ""
         )
@@ -65,15 +66,15 @@ fun EmojiDisplay(
                 .combinedClickable(
                     interactionSource = interactionSource,
                     indication = null,
-                    onClick = { setIndex(it) },
+                    onClick = { setIndex(i) },
                     onDoubleClick = {
-                        emojis.remove(it)
+                        emojis.remove(i)
                         if (useHaptics) haptics.performHapticFeedback(HapticFeedbackType.LongPress)
                     }
                 )
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = emojis[it].orEmpty(), fontSize = 32.sp)
+                Text(text = emojis[i].orEmpty(), fontSize = 32.sp)
             }
         }
     }

@@ -28,6 +28,7 @@ abstract class DatabaseCreator : RoomDatabase() {
     abstract val dao: DatabaseAccessor
 }
 
+@Suppress("TooManyFunctions")
 @Dao
 interface DatabaseAccessor {
     companion object {
@@ -69,7 +70,13 @@ interface DatabaseAccessor {
     @Query("UPDATE StickerPack SET imageDataVersion = imageDataVersion + 1 WHERE id = :id")
     fun incrementPack(id: Long)
 
-    @Query("UPDATE StickerPack SET imageDataVersion = imageDataVersion + 1 WHERE id = (SELECT packId FROM Sticker WHERE id = :id)")
+    @Query(
+        """
+        UPDATE StickerPack 
+        SET imageDataVersion = imageDataVersion + 1
+        WHERE id = (SELECT packId FROM Sticker WHERE id = :id)
+        """
+    )
     fun incrementPackBySticker(id: Long)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

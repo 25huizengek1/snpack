@@ -44,7 +44,7 @@ import me.huizengek.snpack.util.resolveStickerImage
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(modifier: Modifier = Modifier) {
     val navigator = LocalNavigator.current
     val context = LocalContext.current
 
@@ -62,14 +62,16 @@ fun HomeScreen() {
                     )
                 }
             )
-        }, floatingActionButton = {
+        },
+        floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { navigator.navigate(CreateNewPackScreenDestination) },
                 icon = { Icon(imageVector = Icons.Filled.Add, contentDescription = null) },
                 text = { Text(text = stringResource(R.string.new_pack)) },
                 modifier = Modifier.testTag("homeFab")
             )
-        }
+        },
+        modifier = modifier
     ) { paddingValues ->
         Box(
             modifier = Modifier

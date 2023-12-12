@@ -37,10 +37,10 @@ fun Uri.asVirtualFile(mimeTypeFilter: String): InputStream? {
 }
 
 context(Context)
-inline fun <T> Uri.useAsFile(mimeTypeFilter: String, block: (InputStream) -> T) =
-    (if (isVirtual()) asVirtualFile(mimeTypeFilter)
-    else contentResolver.openInputStream(this@useAsFile))
-        .use { stream -> stream?.let { block(it) } }
+inline fun <T> Uri.useAsFile(mimeTypeFilter: String, block: (InputStream) -> T) = (
+        if (isVirtual()) asVirtualFile(mimeTypeFilter)
+        else contentResolver.openInputStream(this@useAsFile)
+        ).use { stream -> stream?.let { block(it) } }
 
 fun Context.findActivity(): Activity? {
     var current = this

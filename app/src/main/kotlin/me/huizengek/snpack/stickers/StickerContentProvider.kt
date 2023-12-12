@@ -21,6 +21,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import me.huizengek.snpack.Database
 import me.huizengek.snpack.DependencyGraph
+import me.huizengek.snpack.models.Sticker
+import me.huizengek.snpack.models.StickerPack
+import me.huizengek.snpack.models.StickerPackWithStickers
 import me.huizengek.snpack.stickers.whatsapp.METADATA
 import me.huizengek.snpack.stickers.whatsapp.METADATA_CODE
 import me.huizengek.snpack.stickers.whatsapp.METADATA_CODE_FOR_SINGLE_PACK
@@ -31,10 +34,6 @@ import me.huizengek.snpack.stickers.whatsapp.STICKERS_CODE
 import me.huizengek.snpack.stickers.whatsapp.STICKERS_FOLDER
 import me.huizengek.snpack.stickers.whatsapp.STICKER_APP_AUTHORITY
 import me.huizengek.snpack.stickers.whatsapp.STICKER_PACK_TRAY_ICON_CODE
-import me.huizengek.snpack.models.Sticker
-import me.huizengek.snpack.models.StickerPack
-import me.huizengek.snpack.models.StickerPackWithStickers
-
 
 private val contentProviderScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -158,15 +157,16 @@ class StickerContentProvider : ContentProvider() {
     private val Uri.asPackList get() = stickerPacks.value.map { it.pack }.toCursor(this)
 
     private val Uri.asPack
-        get() = (stickerPacks.value
+        get() = (
+            stickerPacks.value
             .firstOrNull { it.pack.id.toString() == lastPathSegment }
-            ?.let { listOf(it.pack) } ?: listOf()).toCursor(this)
+            ?.let { listOf(it.pack) } ?: listOf()
+        ).toCursor(this)
 
     private val Uri.asStickers
         get() = stickerPacks.value
             .firstOrNull { it.pack.id.toString() == lastPathSegment }?.stickers?.toCursor(this)
             ?: listOf<Sticker>().toCursor(this)
-
 
     override fun getType(uri: Uri): String {
         val matchCode = uriMatcher.match(uri)
@@ -179,6 +179,7 @@ class StickerContentProvider : ContentProvider() {
         }
     }
 
+    @Suppress("ReturnCount")
     override fun openAssetFile(uri: Uri, mode: String): AssetFileDescriptor? {
         val code = uriMatcher.match(uri)
         if (code != STICKERS_ASSET_CODE && code != STICKER_PACK_TRAY_ICON_CODE) return null
@@ -190,10 +191,12 @@ class StickerContentProvider : ContentProvider() {
         val packs = Database.getPacksBlocking()
         return if (packs.any { pack -> pack.pack.id == id || pack.stickers.any { it.id == id } })
             AssetFileDescriptor(
-                ParcelFileDescriptor.open(
+                /* fd = */ ParcelFileDescriptor.open(
                     context!!.filesDir.resolve(STICKERS_FOLDER).resolve(fileName),
                     ParcelFileDescriptor.MODE_READ_ONLY
-                ), 0, AssetFileDescriptor.UNKNOWN_LENGTH
+                ),
+                /* startOffset = */ 0,
+                /* length = */ AssetFileDescriptor.UNKNOWN_LENGTH
             ) else null
     }
 

@@ -102,6 +102,7 @@ fun PackEditorScreen(
     imageUri: Uri?,
     setImageUri: (Uri?) -> Unit,
     onSave: suspend Context.() -> Unit,
+    modifier: Modifier = Modifier,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
 ) {
     val context = LocalContext.current
@@ -118,7 +119,8 @@ fun PackEditorScreen(
                 navigationIcon = { NavigationAwareBack() }
             )
         },
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        modifier = modifier
     ) { paddingValues ->
         Column(
             modifier = Modifier

@@ -12,10 +12,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import me.huizengek.snpack.Database
-import me.huizengek.snpack.stickers.whatsapp.STICKERS_FOLDER
 import me.huizengek.snpack.models.Sticker
 import me.huizengek.snpack.models.StickerPack
 import me.huizengek.snpack.models.StickerPackWithStickers
+import me.huizengek.snpack.stickers.whatsapp.STICKERS_FOLDER
 import me.huizengek.snpack.util.randomString
 import me.huizengek.snpack.util.resolveStickerImage
 import java.io.File
@@ -65,7 +65,11 @@ object StickerRepository {
     val packs get() = stickerPacks
 
     context(Context)
-    suspend fun insertPack(name: String, publisher: String, trayImage: Bitmap): StickerPack? = withContext(Dispatchers.IO) {
+    suspend fun insertPack(
+        name: String,
+        publisher: String,
+        trayImage: Bitmap
+    ): StickerPack? = withContext(Dispatchers.IO) {
         val fileName = "${randomString()}.webp"
 
         val pack = runCatching {
@@ -108,7 +112,11 @@ object StickerRepository {
     }
 
     context(Context)
-    suspend fun insertSticker(pack: StickerPack, image: Bitmap, emojis: List<String>): Sticker? = withContext(Dispatchers.IO) {
+    suspend fun insertSticker(
+        pack: StickerPack,
+        image: Bitmap,
+        emojis: List<String>
+    ): Sticker? = withContext(Dispatchers.IO) {
         require(emojis.size in (1..3)) { "You need 1 to 3 (inclusive) emojis for the sticker" }
 
         val fileName = "${randomString()}.webp"

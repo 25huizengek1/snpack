@@ -43,9 +43,9 @@ private fun Color.toHsv(): HsvColor {
 
 @Composable
 fun ColorPickerDialog(
-    text: String? = null,
     initialColor: Color,
     setColor: (Color) -> Unit,
+    text: String? = null,
     onDismiss: () -> Unit
 ) = AlertDialog(
     onDismissRequest = { onDismiss() },
