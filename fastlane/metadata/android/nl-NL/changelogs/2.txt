@@ -1,0 +1,4 @@
+* Placeholders veranderd naar meer generieke placeholders
+* Support voor voorspelbare terug-animaties toegevoegd
+* Engelse vertalingen toegevoegd
+* UI inconsistenties gefixt

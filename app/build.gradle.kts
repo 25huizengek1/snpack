@@ -13,7 +13,7 @@ android {
         applicationId = project.group.toString()
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 2
         versionName = project.version.toString()
 
         vectorDrawables.useSupportLibrary = true

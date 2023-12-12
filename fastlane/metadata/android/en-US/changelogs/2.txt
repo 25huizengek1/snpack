@@ -1,0 +1,4 @@
+* Changed placeholders to more generic ones
+* Added English translations
+* Added predictive back animation
+* Fixed UI inconsistencies
