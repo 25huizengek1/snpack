@@ -1,0 +1,3 @@
+An ad-free WhatsApp sticker maker.
+
+* Create stickers of images or text and import them in WhatsApp.
