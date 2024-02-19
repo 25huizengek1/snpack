@@ -1,0 +1,2 @@
+* Fixed navigation issue
+* Upgraded to latest Material 3 version
