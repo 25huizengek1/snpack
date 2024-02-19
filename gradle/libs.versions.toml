@@ -10,7 +10,7 @@ compose-compiler = "1.5.9"
 room = "2.6.1"
 destinations = "1.10.0"
 
-glide = "4.14.2"
+glide = "4.16.0"
 glide-compose = "1.0.0-beta01"
 
 [libraries]
