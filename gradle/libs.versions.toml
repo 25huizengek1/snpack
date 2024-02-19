@@ -5,7 +5,7 @@ ksp = "1.9.22-1.0.17"
 roborazzi = "1.8.0-alpha-4"
 detekt = "1.23.5"
 
-compose-compiler = "1.5.9"
+compose-compiler = "1.6.1"
 
 room = "2.6.1"
 destinations = "1.10.0"
