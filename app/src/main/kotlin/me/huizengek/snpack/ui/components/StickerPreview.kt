@@ -85,15 +85,15 @@ fun StickerPreview(
     strokeColor: Int,
     modifier: Modifier = Modifier
 ) = BoxWithConstraints(modifier = modifier) {
-    val width = maxWidth.toPx()
-    val height = maxHeight.toPx()
+    val width = maxWidth.toPx().value
+    val height = maxHeight.toPx().value
 
     AndroidView(
         factory = { context ->
             StickerPreviewView(
                 context = context,
-                exactWidth = width.roundToInt(),
-                exactHeight = height.roundToInt()
+                exactWidth = width,
+                exactHeight = height
             )
         },
         update = {
@@ -105,6 +105,9 @@ fun StickerPreview(
                 strokeColor = strokeColor
             )
         },
-        modifier = Modifier.size(width = maxWidth, height = maxHeight)
+        modifier = Modifier.size(
+            width = maxWidth,
+            height = maxHeight
+        )
     )
 }

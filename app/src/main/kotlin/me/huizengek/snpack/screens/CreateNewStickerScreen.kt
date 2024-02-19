@@ -77,7 +77,6 @@ import me.huizengek.snpack.ui.components.StickerEmojiPicker
 import me.huizengek.snpack.ui.components.StickerPreview
 import me.huizengek.snpack.ui.components.TopAppBarTitle
 import me.huizengek.snpack.util.px
-import me.huizengek.snpack.util.toDp
 import me.huizengek.snpack.util.uriSaver
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalGlideComposeApi::class)
