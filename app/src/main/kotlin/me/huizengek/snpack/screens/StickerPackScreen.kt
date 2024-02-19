@@ -60,6 +60,7 @@ import me.huizengek.snpack.ui.components.NavigationAwareBack
 import me.huizengek.snpack.ui.components.TopAppBarTitle
 import me.huizengek.snpack.util.findActivity
 import me.huizengek.snpack.util.resolveStickerImage
+import me.huizengek.snpack.util.safeBack
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -119,7 +120,7 @@ fun StickerPackScreen(packId: Long) {
                                         }
                                     } else {
                                         StickerRepository.deletePack(actualPack)
-                                        navigator.popBackStack()
+                                        navigator.safeBack()
                                     }
                                 }
                                 opened = false

@@ -39,6 +39,7 @@ import me.huizengek.snpack.ui.components.ConfirmationDialog
 import me.huizengek.snpack.ui.components.NavigationAwareBack
 import me.huizengek.snpack.ui.components.TopAppBarTitle
 import me.huizengek.snpack.util.resolveStickerImage
+import me.huizengek.snpack.util.safeBack
 
 @OptIn(ExperimentalGlideComposeApi::class, ExperimentalMaterial3Api::class)
 @Destination
@@ -73,7 +74,7 @@ fun StickerScreen(stickerId: Long) {
                         onDismiss = { confirmed ->
                             if (confirmed) with(context) {
                                 sticker?.let { StickerRepository.deleteSticker(it) }
-                                navigator.popBackStack()
+                                navigator.safeBack()
                             }
                             opened = false
                         }

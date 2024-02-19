@@ -16,6 +16,7 @@ import me.huizengek.snpack.LocalNavigator
 import me.huizengek.snpack.R
 import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.util.resolveStickerImage
+import me.huizengek.snpack.util.safeBack
 import me.huizengek.snpack.util.uriSaver
 import me.huizengek.snpack.util.useAsFile
 
@@ -54,7 +55,7 @@ fun EditPackScreen(packId: Long) {
                         publisher,
                         BitmapFactory.decodeStream(it)
                     )
-                    navigator.popBackStack()
+                    navigator.safeBack()
                 }
             }
         )

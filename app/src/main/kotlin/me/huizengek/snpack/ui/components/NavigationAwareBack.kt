@@ -13,6 +13,7 @@ import com.ramcosta.composedestinations.utils.currentDestinationAsState
 import me.huizengek.snpack.LocalNavigator
 import me.huizengek.snpack.NavGraph
 import me.huizengek.snpack.NavGraphs
+import me.huizengek.snpack.util.safeBack
 
 @Composable
 fun NavigationAwareBack(
@@ -25,7 +26,7 @@ fun NavigationAwareBack(
     val show = remember { destination?.route != navGraph.startRoute.route }
 
     if (show) IconButton(
-        onClick = { onClick { navigator.popBackStack() } },
+        onClick = { onClick { navigator.safeBack() } },
         modifier = modifier
     ) {
         Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
