@@ -48,21 +48,6 @@ val stickerPacks by lazy {
         )
 }
 
-fun UriMatcher.addStickerPack(pack: StickerPackWithStickers) {
-    addURI(
-        STICKER_APP_AUTHORITY,
-        "$STICKERS_ASSET/${pack.pack.id}/${pack.pack.trayImageFile}",
-        STICKER_PACK_TRAY_ICON_CODE
-    )
-    pack.stickers.forEach {
-        addURI(
-            STICKER_APP_AUTHORITY,
-            "$STICKERS_ASSET/${pack.pack.id}/${it.imageFileName}",
-            STICKERS_ASSET_CODE
-        )
-    }
-}
-
 class StickerContentProvider : ContentProvider() {
     private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
@@ -101,6 +86,21 @@ class StickerContentProvider : ContentProvider() {
         METADATA_CODE_FOR_SINGLE_PACK -> uri.asPack
         STICKERS_CODE -> uri.asStickers
         else -> throw IllegalArgumentException("Unknown URI: $uri")
+    }
+
+    private fun UriMatcher.addStickerPack(pack: StickerPackWithStickers) {
+        addURI(
+            /* authority = */ STICKER_APP_AUTHORITY,
+            /* path = */ "$STICKERS_ASSET/${pack.pack.id}/${pack.pack.trayImageFile}",
+            /* code = */ STICKER_PACK_TRAY_ICON_CODE
+        )
+        pack.stickers.forEach {
+            addURI(
+                /* authority = */ STICKER_APP_AUTHORITY,
+                /* path = */ "$STICKERS_ASSET/${pack.pack.id}/${it.imageFileName}",
+                /* code = */ STICKERS_ASSET_CODE
+            )
+        }
     }
 
     @JvmName("packsToCursor")
@@ -154,29 +154,29 @@ class StickerContentProvider : ContentProvider() {
         return matrix
     }
 
-    private val Uri.asPackList get() = stickerPacks.value.map { it.pack }.toCursor(this)
+    private val Uri.asPackList
+        get() = stickerPacks.value
+            .map { it.pack }
+            .toCursor(this)
 
     private val Uri.asPack
-        get() = (
-            stickerPacks.value
+        get() = stickerPacks.value
             .firstOrNull { it.pack.id.toString() == lastPathSegment }
-            ?.let { listOf(it.pack) } ?: listOf()
-        ).toCursor(this)
+            ?.let { listOf(it.pack) }
+            .orEmpty()
+            .toCursor(this)
 
     private val Uri.asStickers
         get() = stickerPacks.value
             .firstOrNull { it.pack.id.toString() == lastPathSegment }?.stickers?.toCursor(this)
             ?: listOf<Sticker>().toCursor(this)
 
-    override fun getType(uri: Uri): String {
-        val matchCode = uriMatcher.match(uri)
-        return when (matchCode) {
-            METADATA_CODE -> "vnd.android.cursor.dir/vnd.$STICKER_APP_AUTHORITY.$METADATA"
-            METADATA_CODE_FOR_SINGLE_PACK -> "vnd.android.cursor.item/vnd.$STICKER_APP_AUTHORITY.$METADATA"
-            STICKERS_CODE -> "vnd.android.cursor.dir/vnd.$STICKER_APP_AUTHORITY.$STICKERS"
-            STICKERS_ASSET_CODE, STICKER_PACK_TRAY_ICON_CODE -> "image/webp"
-            else -> throw IllegalArgumentException("Unknown URI: $uri")
-        }
+    override fun getType(uri: Uri) = when (uriMatcher.match(uri)) {
+        METADATA_CODE -> "vnd.android.cursor.dir/vnd.$STICKER_APP_AUTHORITY.$METADATA"
+        METADATA_CODE_FOR_SINGLE_PACK -> "vnd.android.cursor.item/vnd.$STICKER_APP_AUTHORITY.$METADATA"
+        STICKERS_CODE -> "vnd.android.cursor.dir/vnd.$STICKER_APP_AUTHORITY.$STICKERS"
+        STICKERS_ASSET_CODE, STICKER_PACK_TRAY_ICON_CODE -> "image/webp"
+        else -> throw IllegalArgumentException("Unknown URI: $uri")
     }
 
     @Suppress("ReturnCount")
@@ -188,16 +188,17 @@ class StickerContentProvider : ContentProvider() {
         val id = identifier.toLongOrNull() ?: return null
         if (fileName.isEmpty()) return null
 
-        val packs = Database.getPacksBlocking()
-        return if (packs.any { pack -> pack.pack.id == id || pack.stickers.any { it.id == id } })
-            AssetFileDescriptor(
-                /* fd = */ ParcelFileDescriptor.open(
-                    context!!.filesDir.resolve(STICKERS_FOLDER).resolve(fileName),
-                    ParcelFileDescriptor.MODE_READ_ONLY
-                ),
-                /* startOffset = */ 0,
-                /* length = */ AssetFileDescriptor.UNKNOWN_LENGTH
-            ) else null
+        return if (
+            Database.getPacksBlocking()
+                .any { pack -> pack.pack.id == id || pack.stickers.any { it.id == id } }
+        ) AssetFileDescriptor(
+            /* fd = */ ParcelFileDescriptor.open(
+                /* file = */ context!!.filesDir.resolve(STICKERS_FOLDER).resolve(fileName),
+                /* mode = */ ParcelFileDescriptor.MODE_READ_ONLY
+            ),
+            /* startOffset = */ 0,
+            /* length = */ AssetFileDescriptor.UNKNOWN_LENGTH
+        ) else null
     }
 
     override fun insert(uri: Uri, values: ContentValues?) = error("Unsupported")

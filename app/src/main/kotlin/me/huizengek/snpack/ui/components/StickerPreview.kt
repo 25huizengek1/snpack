@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import me.huizengek.snpack.stickers.drawText
 import me.huizengek.snpack.util.toPx
-import kotlin.math.roundToInt
 
 private data class StickerPreviewState(
     val text: String = "",

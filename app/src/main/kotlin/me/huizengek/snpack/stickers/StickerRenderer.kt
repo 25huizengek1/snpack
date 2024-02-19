@@ -85,11 +85,13 @@ fun String.toSticker(
 }
 
 context(Context)
-fun Uri.toSticker(width: Int = 512, aspect: Float = 1.0f): Bitmap {
-    val bitmap = (
-            if (isVirtual()) asVirtualFile("image/*")
-            else contentResolver.openInputStream(this@toSticker)
-            ).use { BitmapFactory.decodeStream(it) }
+fun Uri.toSticker(
+    width: Int = 512,
+    aspect: Float = 1.0f
+): Bitmap {
+    val stream = if (isVirtual()) asVirtualFile("image/*")
+    else contentResolver.openInputStream(this@toSticker)
+    val bitmap = stream.use { BitmapFactory.decodeStream(it) }
 
     return createSticker(width, aspect) {
         val matrix = Matrix()
