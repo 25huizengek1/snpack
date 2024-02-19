@@ -3,11 +3,15 @@ package me.huizengek.snpack.preferences
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshots.Snapshot
 import androidx.core.content.edit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -18,16 +22,35 @@ fun <T : Any> sharedPreferencesProperty(
     getValue: SharedPreferences.(key: String) -> T,
     setValue: SharedPreferences.Editor.(key: String, value: T) -> Unit,
     defaultValue: T
-) = object : ReadWriteProperty<PreferencesHolder, T> {
-    private var state = mutableStateOf(defaultValue)
-    private var listener: SharedPreferences.OnSharedPreferenceChangeListener? = null
+) = SharedPreferencesProperty(
+    get = getValue,
+    set = setValue,
+    default = defaultValue
+)
+
+@Stable
+data class SharedPreferencesProperty<T : Any> internal constructor(
+    private val get: SharedPreferences.(key: String) -> T,
+    private val set: SharedPreferences.Editor.(key: String, value: T) -> Unit,
+    private val default: T
+) : ReadWriteProperty<PreferencesHolder, T> {
+    private val state = mutableStateOf(default)
+    val stateFlow = MutableStateFlow(default)
+    private var listener: OnSharedPreferenceChangeListener? = null
+
+    private fun setState(newValue: T) {
+        state.value = newValue
+        stateFlow.update { newValue }
+    }
 
     override fun getValue(thisRef: PreferencesHolder, property: KProperty<*>): T {
         if (listener == null && !Snapshot.current.readOnly && !Snapshot.current.root.readOnly) {
-            state.value = thisRef.getValue(property.name)
-            listener = SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
-                if (key == property.name) preferences.getValue(property.name)
-                    .let { if (it != state && !Snapshot.current.readOnly) state.value = it }
+            setState(thisRef.get(property.name))
+
+            listener = OnSharedPreferenceChangeListener { preferences, key ->
+                if (key == property.name) preferences.get(property.name).let {
+                    if (it != state.value && !Snapshot.current.readOnly) setState(it)
+                }
             }
             thisRef.registerOnSharedPreferenceChangeListener(listener)
         }
@@ -37,15 +60,17 @@ fun <T : Any> sharedPreferencesProperty(
     override fun setValue(thisRef: PreferencesHolder, property: KProperty<*>, value: T) =
         coroutineScope.launch {
             thisRef.edit(commit = true) {
-                setValue(property.name, value)
+                set(property.name, value)
             }
         }.let { }
 }
 
 /**
  * A snapshottable, thread-safe, compose-first, extensible SharedPreferences wrapper that supports
- * virtually all types, and if it doesn't, one could simply type `fun myNewType(...) = sharedPreferencesProperty(...)`
- * and start implementing. Starts off as given defaultValue until we are allowed to subscribe to SharedPreferences
+ * virtually all types, and if it doesn't, one could simply type
+ * `fun myNewType(...) = sharedPreferencesProperty(...)` and start implementing. Starts off as given
+ * defaultValue until we are allowed to subscribe to SharedPreferences. Caution: the type of the
+ * preference has to be [Stable], otherwise UB will occur.
  */
 open class PreferencesHolder(
     application: Application,
@@ -84,7 +109,8 @@ open class PreferencesHolder(
 
     inline fun <reified T : Enum<T>> enum(defaultValue: T) = sharedPreferencesProperty(
         getValue = {
-            getString(it, null)?.let { runCatching { enumValueOf<T>(it) }.getOrNull() } ?: defaultValue
+            getString(it, null)?.let { runCatching { enumValueOf<T>(it) }.getOrNull() }
+                ?: defaultValue
         },
         setValue = { k, v -> putString(k, v.name) },
         defaultValue

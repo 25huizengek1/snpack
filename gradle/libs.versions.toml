@@ -1,19 +1,14 @@
 [versions]
-agp = "8.3.0-alpha16"
-kotlin = "1.9.20"
-ksp = "1.9.20-1.0.14"
+agp = "8.4.0-alpha03"
+kotlin = "1.9.22"
+ksp = "1.9.22-1.0.17"
 roborazzi = "1.8.0-alpha-4"
-detekt = "1.23.3"
+detekt = "1.23.5"
 
-core-ktx = "1.12.0"
-lifecycle-runtime-ktx = "2.6.2"
-activity-compose = "1.8.1"
-compose-bom = "2023.10.01"
-
-compose-compiler = "1.5.4"
+compose-compiler = "1.5.9"
 
 room = "2.6.1"
-destinations = "1.9.54"
+destinations = "1.10.0"
 
 glide = "4.14.2"
 glide-compose = "1.0.0-beta01"
@@ -21,17 +16,18 @@ glide-compose = "1.0.0-beta01"
 [libraries]
 desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.0.4" }
 
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version = "1.8.1" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.12.0" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version = "1.8.2" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.7.0" }
 
-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
-ui = { group = "androidx.compose.ui", name = "ui" }
-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.0-alpha12" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.02.00" }
+compose-activity = { group = "androidx.activity", name = "activity-compose", version = "1.8.2" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version = "1.6.0" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.0" }
 
-kotlinx-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version = "0.3.6" }
+kotlinx-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version = "0.3.7" }
 
 room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
@@ -48,8 +44,8 @@ glide-ksp = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "
 
 color-picker = { group = "com.godaddy.android.colorpicker", name = "compose-color-picker", version = "0.7.0" }
 
-detekt_compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.4" }
-detekt_formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.4" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
 # Testing
 robolectric = { group = "org.robolectric", name = "robolectric", version = "4.11.1" }
