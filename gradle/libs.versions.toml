@@ -22,7 +22,7 @@ lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtim
 
 compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.02.01" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version = "1.8.2" }
-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version = "1.6.1" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version = "1.6.2" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.0" }
