@@ -44,7 +44,7 @@ glide-ksp = { group = "com.github.bumptech.glide", name = "ksp", version.ref = "
 
 color-picker = { group = "com.godaddy.android.colorpicker", name = "compose-color-picker", version = "0.7.0" }
 
-detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.11" }
+detekt-compose = { module = "io.nlopez.compose.rules:detekt", version = "0.3.12" }
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
 
 # Testing
