@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ApplicationBuildType
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,25 +8,29 @@ plugins {
 }
 
 android {
-    namespace = project.group.toString()
+    val id = project.group.toString()
+
+    namespace = id
     compileSdk = 34
 
-    defaultConfig {
-        applicationId = project.group.toString()
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 3
-        versionName = project.version.toString()
-
-        vectorDrawables.useSupportLibrary = true
-
-        val contentProviderAuthority = "$applicationId.stickercontentprovider"
+    fun ApplicationBuildType.configureProviders() {
+        val contentProviderAuthority = "$id${applicationIdSuffix.orEmpty()}.stickercontentprovider"
         manifestPlaceholders["contentProviderAuthority"] = contentProviderAuthority
         buildConfigField(
             type = "String",
             name = "CONTENT_PROVIDER_AUTHORITY",
             value = "\"${contentProviderAuthority}\""
         )
+    }
+
+    defaultConfig {
+        applicationId = id
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 3
+        versionName = project.version.toString()
+
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,9 +39,13 @@ android {
 
     buildTypes {
         val label = "snpack"
+
         debug {
             versionNameSuffix = "-DEBUG"
             manifestPlaceholders["appName"] = "$label debug"
+            applicationIdSuffix = ".debug"
+
+            configureProviders()
         }
         release {
             isMinifyEnabled = false
@@ -45,6 +55,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            configureProviders()
         }
     }
 
