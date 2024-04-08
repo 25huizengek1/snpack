@@ -57,7 +57,7 @@ import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.ui.components.NavigationAwareBack
 import me.huizengek.snpack.ui.components.TopAppBarTitle
 import me.huizengek.snpack.util.uriSaver
-import me.huizengek.snpack.util.useAsFile
+import me.huizengek.snpack.util.useAsInput
 
 @Destination
 @Composable
@@ -77,7 +77,7 @@ fun CreateNewPackScreen() {
         imageUri = imageUri,
         setImageUri = { imageUri = it },
         onSave = {
-            imageUri?.useAsFile("image/*") {
+            imageUri?.useAsInput("image/*") {
                 val pack = StickerRepository.insertPack(
                     name = name,
                     publisher = publisher,

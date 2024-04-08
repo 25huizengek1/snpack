@@ -9,4 +9,6 @@ pluginManagement {
 }
 
 rootProject.name = "snpack"
+
 include(":app")
+include(":backup")

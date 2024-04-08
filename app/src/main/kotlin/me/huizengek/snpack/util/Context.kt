@@ -3,11 +3,13 @@ package me.huizengek.snpack.util
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.res.AssetFileDescriptor
 import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
 import me.huizengek.snpack.stickers.whatsapp.STICKERS_FOLDER
 import java.io.InputStream
+import java.io.OutputStream
 
 val isAtLeastAndroid12 get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
@@ -29,17 +31,23 @@ fun Uri.isVirtual(): Boolean {
 }
 
 context(Context)
-fun Uri.asVirtualFile(mimeTypeFilter: String): InputStream? {
+@PublishedApi
+internal fun Uri.openVirtualFile(mimeTypeFilter: String): AssetFileDescriptor? {
     val openableTypes = contentResolver.getStreamTypes(this, mimeTypeFilter)
     return if (openableTypes?.isNotEmpty() == true) contentResolver
-        .openTypedAssetFileDescriptor(this, openableTypes.first(), null)
-        ?.createInputStream() else null
+        .openTypedAssetFileDescriptor(this, openableTypes.first(), null) else null
 }
 
 context(Context)
-inline fun <T> Uri.useAsFile(mimeTypeFilter: String, block: (InputStream) -> T) = (
-        if (isVirtual()) asVirtualFile(mimeTypeFilter)
-        else contentResolver.openInputStream(this@useAsFile)
+inline fun <T> Uri.useAsInput(mimeTypeFilter: String, block: (InputStream) -> T) = (
+        if (isVirtual()) openVirtualFile(mimeTypeFilter)?.createInputStream()
+        else contentResolver.openInputStream(this@useAsInput)
+        ).use { stream -> stream?.let { block(it) } }
+
+context(Context)
+inline fun <T> Uri.useAsOutput(mimeTypeFilter: String, block: (OutputStream) -> T) = (
+        if (isVirtual()) openVirtualFile(mimeTypeFilter)?.createOutputStream()
+        else contentResolver.openOutputStream(this@useAsOutput)
         ).use { stream -> stream?.let { block(it) } }
 
 fun Context.findActivity(): Activity? {

@@ -12,8 +12,7 @@ import android.net.Uri
 import android.text.StaticLayout
 import android.text.TextPaint
 import androidx.core.graphics.withTranslation
-import me.huizengek.snpack.util.asVirtualFile
-import me.huizengek.snpack.util.isVirtual
+import me.huizengek.snpack.util.openVirtualFile
 import kotlin.math.roundToInt
 
 private fun createSticker(width: Int, aspect: Float, draw: Canvas.() -> Unit) =
@@ -89,9 +88,9 @@ fun Uri.toSticker(
     width: Int = 512,
     aspect: Float = 1.0f
 ): Bitmap {
-    val stream = if (isVirtual()) asVirtualFile("image/*")
-    else contentResolver.openInputStream(this@toSticker)
-    val bitmap = stream.use { BitmapFactory.decodeStream(it) }
+    val bitmap = openVirtualFile("image/*")
+        ?.createInputStream()!!
+        .use { BitmapFactory.decodeStream(it) }
 
     return createSticker(width, aspect) {
         val matrix = Matrix()

@@ -2,7 +2,9 @@ package me.huizengek.snpack.ui.components
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,6 +39,17 @@ fun SettingsGroupText(
 
 @Composable
 fun SettingsGroupSpacer(modifier: Modifier = Modifier) = Spacer(modifier = modifier.height(24.dp))
+
+@Composable
+fun SettingsGroup(
+    title: String,
+    modifier: Modifier = Modifier,
+    content: @Composable ColumnScope.() -> Unit
+) = Column(modifier = modifier) {
+    SettingsGroupText(title = title)
+    content()
+    SettingsGroupSpacer()
+}
 
 @Composable
 fun SettingsEntry(
@@ -76,7 +89,7 @@ fun SwitchSettingsEntry(
     onClick = { setState(!state) },
     enabled = enabled,
     trailingContent = {
-        BoxWithConstraints {
+        Box {
             Switch(
                 checked = state,
                 onCheckedChange = { setState(it) },

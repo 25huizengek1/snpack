@@ -59,4 +59,11 @@
     <string name="sad">Verdrietig</string>
     <string name="angry">Boos</string>
     <string name="party">Feest</string>
+
+    <string name="backup_restored">Back-up van %1$s hersteld.</string>
+    <string name="backup">Back-up</string>
+    <string name="backup_create">Maak back-up</string>
+    <string name="backup_create_description">Kies een map en sla je back-up op je telefoon op.</string>
+    <string name="backup_restore">Herstel back-up</string>
+    <string name="backup_restore_description">Herstel je back-up vanaf je telefoon en voeg alle stickers toe aan je gallerij.</string>
 </resources>

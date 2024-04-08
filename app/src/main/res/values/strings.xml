@@ -59,4 +59,11 @@
     <string name="sad">Sad</string>
     <string name="angry">Angry</string>
     <string name="party">Party</string>
+
+    <string name="backup_restored">Backup by %1$s restored.</string>
+    <string name="backup">Backup</string>
+    <string name="backup_create">Create backup</string>
+    <string name="backup_create_description">Pick a location and store your backup on disk.</string>
+    <string name="backup_restore">Restore backup</string>
+    <string name="backup_restore_description">Restore backup from disk and add all stickers to your library.</string>
 </resources>

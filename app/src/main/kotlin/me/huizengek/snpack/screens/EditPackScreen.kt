@@ -18,7 +18,7 @@ import me.huizengek.snpack.stickers.StickerRepository
 import me.huizengek.snpack.util.resolveStickerImage
 import me.huizengek.snpack.util.safeBack
 import me.huizengek.snpack.util.uriSaver
-import me.huizengek.snpack.util.useAsFile
+import me.huizengek.snpack.util.useAsInput
 
 @Destination
 @Composable
@@ -48,7 +48,7 @@ fun EditPackScreen(packId: Long) {
             imageUri = imageUri,
             setImageUri = { imageUri = it },
             onSave = {
-                imageUri?.useAsFile("image/*") {
+                imageUri?.useAsInput("image/*") {
                     StickerRepository.updatePack(
                         packId,
                         name,

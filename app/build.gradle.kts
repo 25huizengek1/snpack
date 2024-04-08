@@ -92,6 +92,8 @@ kotlin {
 dependencies {
     coreLibraryDesugaring(libs.desugaring)
 
+    implementation(projects.backup)
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.ktx)
