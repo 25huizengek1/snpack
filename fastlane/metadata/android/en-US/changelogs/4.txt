@@ -1,0 +1,4 @@
+* Upgraded to latest Material 3 version
+* Added debug variant for easier debugging
+* Fixed inconsistencies
+* Added backup/restore functionality
