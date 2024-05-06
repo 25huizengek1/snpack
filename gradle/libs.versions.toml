@@ -18,7 +18,7 @@ glide-compose = "1.0.0-beta01"
 [libraries]
 desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.0.4" }
 
-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.13.0" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.13.1" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.7.0" }
 
