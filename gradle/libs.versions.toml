@@ -1,13 +1,12 @@
 [versions]
-agp = "8.4.0-alpha03"
-kotlin = "1.9.23"
+agp = "8.6.0-alpha02"
+kotlin = "2.0.0"
 
-ksp = "1.9.23-1.0.20"
+ksp = "2.0.0-1.0.21"
 roborazzi = "1.14.0"
 detekt = "1.23.6"
 
 activity = "1.9.0"
-compose-compiler = "1.5.11"
 
 room = "2.6.1"
 destinations = "1.10.2"
@@ -55,14 +54,15 @@ robolectric = { group = "org.robolectric", name = "robolectric", version = "4.12
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
 junit = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.5" }
-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "compose-compiler" }
-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "compose-compiler" }
+ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

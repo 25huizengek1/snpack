@@ -12,7 +12,6 @@ import android.net.Uri
 import android.text.StaticLayout
 import android.text.TextPaint
 import androidx.core.graphics.withTranslation
-import me.huizengek.snpack.util.openVirtualFile
 import me.huizengek.snpack.util.useAsInput
 import kotlin.math.roundToInt
 

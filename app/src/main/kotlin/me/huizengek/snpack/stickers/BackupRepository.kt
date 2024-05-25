@@ -87,7 +87,7 @@ object BackupRepository {
                             avoidCache = it.pack.avoidCache,
                             animated = it.pack.animatedStickerPack,
                             appStoreLink = it.pack.iosAppStoreLink,
-                            playStoreLink = it.pack.androidPlayStoreLink,
+                            playStoreLink = it.pack.androidPlayStoreLink
                         ) to resolveStickerImage(it.pack.trayImageFile)
                     },
                     stickers = dbPacks.flatMap { pack ->

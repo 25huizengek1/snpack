@@ -1,7 +1,6 @@
 package me.huizengek.snpack.backup
 
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.InputStream
 import java.nio.charset.Charset
 import java.util.zip.ZipEntry

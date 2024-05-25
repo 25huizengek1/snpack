@@ -37,15 +37,11 @@ class Screenshots {
 
     @Test
     @Config(qualifiers = "+en")
-    fun testTakeScreenshotsEnglish() = with(composeTestRule) {
-        takeAll("en-US")
-    }
+    fun testTakeScreenshotsEnglish() = takeAll("en-US")
 
     @Test
     @Config(qualifiers = "+nl")
-    fun testTakeScreenshotsDutch() = with(composeTestRule) {
-        takeAll("nl-NL")
-    }
+    fun testTakeScreenshotsDutch() = takeAll("nl-NL")
 
     private fun takeAll(tag: String) {
         ThemePreferences.theme = ThemePreferences.Theme.LIGHT
