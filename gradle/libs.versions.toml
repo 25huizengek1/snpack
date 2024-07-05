@@ -53,7 +53,7 @@ detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-form
 robolectric = { group = "org.robolectric", name = "robolectric", version = "4.12.2" }
 roborazzi = { group = "io.github.takahirom.roborazzi", name = "roborazzi", version.ref = "roborazzi" }
 roborazzi-compose = { group = "io.github.takahirom.roborazzi", name = "roborazzi-compose", version.ref = "roborazzi" }
-junit = { group = "androidx.test.ext", name = "junit-ktx", version = "1.1.5" }
+junit = { group = "androidx.test.ext", name = "junit-ktx", version = "1.2.1" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
