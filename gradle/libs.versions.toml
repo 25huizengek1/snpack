@@ -19,7 +19,7 @@ desugaring = { group = "com.android.tools", name = "desugar_jdk_libs", version =
 
 core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.13.1" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.8.3" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.8.4" }
 
 compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.06.00" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
