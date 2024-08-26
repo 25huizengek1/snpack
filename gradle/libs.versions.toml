@@ -21,7 +21,7 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.13.1" }
 activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.8.4" }
 
-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.06.00" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.08.00" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "activity" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
