@@ -4,7 +4,7 @@ kotlin = "2.0.0"
 
 ksp = "2.0.0-1.0.23"
 roborazzi = "1.26.0"
-detekt = "1.23.6"
+detekt = "1.23.7"
 
 activity = "1.9.1"
 
