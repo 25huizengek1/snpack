@@ -9,7 +9,7 @@ detekt = "1.23.7"
 activity = "1.9.1"
 
 room = "2.6.1"
-destinations = "1.10.2"
+destinations = "1.11.6"
 
 glide = "4.16.0"
 glide-compose = "1.0.0-beta01"
