@@ -29,7 +29,7 @@ compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 material3 = { group = "androidx.compose.material3", name = "material3", version = "1.2.1" }
 
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.7.2" }
-kotlinx-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version = "0.3.7" }
+kotlinx-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version = "0.3.8" }
 
 room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
