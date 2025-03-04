@@ -6,7 +6,7 @@ ksp = "2.0.0-1.0.23"
 roborazzi = "1.28.0"
 detekt = "1.23.7"
 
-activity = "1.9.1"
+activity = "1.9.2"
 
 room = "2.6.1"
 destinations = "1.10.2"
