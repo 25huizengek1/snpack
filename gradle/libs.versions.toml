@@ -3,7 +3,7 @@ agp = "8.6.0-alpha02"
 kotlin = "2.1.20"
 
 ksp = "2.1.20-1.0.31"
-roborazzi = "1.43.0"
+roborazzi = "1.43.1"
 detekt = "1.23.8"
 
 activity = "1.10.1"
