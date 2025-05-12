@@ -8,7 +8,7 @@ detekt = "1.23.8"
 
 activity = "1.10.1"
 
-room = "2.7.0"
+room = "2.7.1"
 destinations = "1.11.9"
 
 glide = "4.16.0"
